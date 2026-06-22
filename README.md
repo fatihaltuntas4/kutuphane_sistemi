@@ -26,7 +26,7 @@ Tüm bu sistem **Docker** ve **Docker Compose** kullanılarak konteynerleştiril
   - Sistemdeki tüm işlemleri anlık takip etme.
   - **Kapsamlı Raporlar:** En çok okunan kitaplar, en aktif kullanıcılar, gecikmiş iadeler, şu an ödünçte olan kitaplar ve aylık istatistikler.
 
- Kurulum ve Çalıştırma (Docker)
+ **Kurulum ve Çalıştırma (Docker)**
 
 Projeyi bilgisayarınızda çalıştırmak için sadece **Docker Desktop**'ın yüklü ve çalışır durumda olması yeterlidir. Sistemin kurulumu ve verilerin içeri aktarılması **tamamen otomatikleştirilmiştir**.
 
