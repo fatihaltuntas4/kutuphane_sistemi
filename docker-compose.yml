@@ -32,7 +32,7 @@ services:
     build: ./frontend
     container_name: kutuphane_frontend
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - backend
     restart: always

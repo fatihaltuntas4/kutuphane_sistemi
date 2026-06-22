@@ -19,5 +19,5 @@ echo ===================================================
 echo SISTEM BASARIYLA KURULDU VE YAYINDA!
 echo ===================================================
 echo Tarayiciniz otomatik olarak aciliyor...
-start http://localhost
+start http://localhost:8080
 pause

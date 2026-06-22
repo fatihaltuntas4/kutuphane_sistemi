@@ -34,7 +34,7 @@ Projeyi bilgisayarınızda çalıştırmak için sadece **Docker Desktop**'ın y
 Sistemi değerlendirecek hocalarımızın ve kullanıcıların rahatlığı için otomatik bir başlatıcı hazırlanmıştır:
 1. Proje klasörü içerisindeki **`baslat.bat`** dosyasına çift tıklayın.
 2. Komut satırı (CMD) ekranı açılacak ve sırasıyla; Docker sunucularını indirecek, veritabanını hazırlayacak ve 2000 adet Kaggle kitabını sisteme otomatik olarak aktaracaktır.
-3. İşlem tamamlandığında sistem varsayılan tarayıcınızda otomatik olarak açılacaktır (👉 **http://localhost**).
+3. İşlem tamamlandığında sistem varsayılan tarayıcınızda otomatik olarak açılacaktır (👉 **http://localhost:8080**).
 
 ### 🛠️ Manuel Kurulum (Mac/Linux veya Alternatif)
 Eğer sistemi manuel komutlarla çalıştırmak isterseniz proje dizininde (Terminal/CMD) aşağıdaki komutları sırasıyla girebilirsiniz:
@@ -46,7 +46,7 @@ Eğer sistemi manuel komutlarla çalıştırmak isterseniz proje dizininde (Term
    ```bash
    docker exec kutuphane_backend python import_kaggle_data.py
    ```
-3. Tarayıcınızdan sisteme giriş yapın: 👉 **http://localhost**
+3. Tarayıcınızdan sisteme giriş yapın: 👉 **http://localhost:8080**
 
 ## 📂 Dosya Yapısı
 - `/frontend`: Kullanıcı arayüzü dosyaları (HTML, CSS, JS) ve Nginx Dockerfile.
