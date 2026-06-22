@@ -38,7 +38,11 @@ Projeyi bilgisayarınızda çalıştırmak için **Docker** ve **Docker Desktop*
    ```bash
    docker-compose up -d --build
    ```
-3. Tarayıcınızdan aşağıdaki adrese giderek sistemi kullanmaya başlayabilirsiniz:
+3. (Opsiyonel) Kaggle veriseti üzerinden 2000 kitap ve 50 örnek kullanıcıyı sisteme aktarmak için veritabanını hazırlayan şu komutu çalıştırın:
+   ```bash
+   docker exec kutuphane_backend python import_kaggle_data.py
+   ```
+4. Tarayıcınızdan aşağıdaki adrese giderek sistemi kullanmaya başlayabilirsiniz:
    👉 **http://localhost**
 
 ## 📂 Dosya Yapısı
