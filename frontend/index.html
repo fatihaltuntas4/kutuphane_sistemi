@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Kütüphane Yönetim Sistemi</title>
+    <meta name="description" content="Öğrenciler ve kütüphaneciler için modern, hızlı ve şık bir kütüphane yönetim paneli.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Bildirim Alanı -->
+        <div id="toast-container"></div>
+
+        <!-- Yükleniyor Ekranı -->
+        <div id="loader" class="hidden">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Auth Ekranı (Giriş / Kayıt) -->
+        <section id="auth-section" class="active glass-panel">
+            <div class="auth-header">
+                <h1>📚 Kütüphane Portalına Hoşgeldiniz</h1>
+                <p>Eğitim serüveninizde binlerce kitaba tek tıkla ulaşın.</p>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Giriş Yap</button>
+                <button class="tab-btn" onclick="switchTab('register')">Kayıt Ol</button>
+            </div>
+
+            <form id="login-form" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>E-posta Adresi</label>
+                    <input type="email" id="login-email" required placeholder="ornek@ogrenci.edu.tr">
+                </div>
+                <div class="input-group">
+                    <label>Şifre</label>
+                    <div style="position: relative;">
+                        <input type="password" id="login-password" required placeholder="••••••••">
+                        <button type="button" onclick="togglePassword('login-password')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; font-size: 1.2rem; padding: 0;">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="primary-btn">Giriş Yap</button>
+            </form>
+
+            <form id="register-form" class="auth-form hidden" onsubmit="handleRegister(event)">
+                <div class="input-group">
+                    <label>Ad Soyad</label>
+                    <input type="text" id="register-name" required placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label>E-posta</label>
+                    <input type="email" id="register-email" required placeholder="ornek@ogrenci.edu.tr">
+                </div>
+                <div class="input-group">
+                    <label>Şifre</label>
+                    <div style="position: relative;">
+                        <input type="password" id="register-password" required placeholder="••••••••">
+                        <button type="button" onclick="togglePassword('register-password')" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; font-size: 1.2rem; padding: 0;">👁️</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Rol</label>
+                    <select id="register-role">
+                        <option value="Öğrenci">Öğrenci</option>
+                        <option value="Kütüphaneci">Kütüphaneci</option>
+                        <option value="Yönetici">Yönetici</option>
+                    </select>
+                </div>
+                <button type="submit" class="primary-btn">Hesap Oluştur</button>
+            </form>
+        </section>
+
+        <!-- Dashboard Ana Ekranı (Giriş yaptıktan sonra burası görünecek) -->
+        <section id="dashboard-section" class="hidden">
+            <nav class="navbar glass-panel">
+                <div class="nav-brand">📚 Kütüphane</div>
+                <div class="nav-links">
+                    <span id="user-greeting">Merhaba, Kullanıcı</span>
+                    <button class="danger-btn" onclick="handleLogout()">Çıkış Yap</button>
+                </div>
+            </nav>
+
+            <div class="dashboard-content">
+                <!-- Sol Menü -->
+                <aside class="sidebar glass-panel">
+                    <ul id="menu-list">
+                        <!-- Roller bazlı menüler JS ile buraya basılacak -->
+                    </ul>
+                </aside>
+
+                <!-- Sağ İçerik Alanı -->
+                <main class="main-content glass-panel">
+                    <!-- Kitaplar Görünümü -->
+                    <div id="view-books" class="view-section active">
+                        <h2>Kitap Kataloğu</h2>
+                        <div class="search-bar">
+                            <input type="text" id="search-input" placeholder="Kitap Adı, Yazar veya ISBN Ara...">
+                            <button class="primary-btn" onclick="fetchBooks()">Ara</button>
+                        </div>
+                        <div class="grid-container" id="books-grid">
+                            <!-- JS ile doldurulacak -->
+                        </div>
+                    </div>
+
+                    <!-- Raporlar Görünümü (Sadece Yönetici/Kütüphaneci) -->
+                    <div id="view-reports" class="view-section hidden">
+                        <h2>Sistem İstatistikleri ve Raporlar</h2>
+                        <div class="reports-grid">
+                            <div class="report-card">
+                                <h3>En Çok Okunanlar</h3>
+                                <ul id="most-borrowed-list"></ul>
+                            </div>
+                            <div class="report-card">
+                                <h3>Aktif Kullanıcılar</h3>
+                                <ul id="active-users-list"></ul>
+                            </div>
+                            <div class="report-card">
+                                <h3>Şu An Ödünç Alınmış Kitaplar</h3>
+                                <ul id="currently-borrowed-list"></ul>
+                            </div>
+                            <div class="report-card">
+                                <h3>Gecikmiş İadeler</h3>
+                                <ul id="overdue-list"></ul>
+                            </div>
+                            <div class="report-card">
+                                <h3>Aylık Ödünç Alma İstatistikleri</h3>
+                                <ul id="monthly-stats-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Öğrenci: İşlemlerim -->
+                    <div id="view-my-transactions" class="view-section hidden">
+                        <h2>İşlem Geçmişim</h2>
+                        
+                        <div style="margin-top:20px;">
+                            <h3 style="margin-bottom:10px; color:var(--primary-color);">Aktif Ödünç Alınanlar</h3>
+                            <div class="table-responsive">
+                                <table class="glass-table">
+                                    <thead><tr><th>Kitap Adı</th><th>Ödünç Tarihi</th><th>Son Teslim</th><th>Durum</th><th>İşlem</th></tr></thead>
+                                    <tbody id="my-borrows-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:30px;">
+                            <h3 style="margin-bottom:10px; color:#f59e0b;">Bekleyen Rezervasyonlar</h3>
+                            <div class="table-responsive">
+                                <table class="glass-table">
+                                    <thead><tr><th>Kitap Adı</th><th>Rezervasyon Tarihi</th><th>Durum</th><th>İşlem</th></tr></thead>
+                                    <tbody id="my-reserves-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yönetici: Kitap Yönetimi -->
+                    <div id="view-admin-books" class="view-section hidden">
+                        <h2>Kitap Yönetimi</h2>
+                        
+                        <div class="report-card" style="margin-bottom:20px;">
+                            <h3>Yeni Kitap Ekle</h3>
+                            <form id="add-book-form" onsubmit="handleAddBook(event)" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+                                <input type="text" id="add-isbn" placeholder="ISBN" required class="form-input">
+                                <input type="text" id="add-title" placeholder="Kitap Adı" required class="form-input">
+                                <input type="text" id="add-author" placeholder="Yazar" required class="form-input">
+                                <input type="text" id="add-publisher" placeholder="Yayınevi" required class="form-input">
+                                <input type="number" id="add-year" placeholder="Yıl" required class="form-input" style="width:100px;">
+                                <button type="submit" class="primary-btn" style="width:auto; padding:10px 20px;">Ekle</button>
+                            </form>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="glass-table">
+                                <thead><tr><th>ISBN</th><th>Kitap Adı</th><th>Yazar</th><th>Durum</th><th>İşlem</th></tr></thead>
+                                <tbody id="admin-books-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Yönetici: Tüm İşlemler -->
+                    <div id="view-all-transactions" class="view-section hidden">
+                        <h2>Sistemdeki Tüm İşlemler</h2>
+                        <div class="table-responsive" style="margin-top:20px;">
+                            <table class="glass-table">
+                                <thead><tr><th>ID</th><th>Kullanıcı Email</th><th>Kitap Adı</th><th>Ödünç / Teslim</th><th>Durum</th></tr></thead>
+                                <tbody id="all-transactions-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
