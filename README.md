@@ -32,7 +32,7 @@ Projeyi bilgisayarınızda çalıştırmak için sadece **Docker Desktop**'ın y
 
 Tek Tıkla Kurulum (Windows İçin Önerilen)
 Sistemi değerlendirecek hocalarımızın ve kullanıcıların rahatlığı için otomatik bir başlatıcı hazırlanmıştır:
-1. Proje klasörü içerisindeki **`baslat.bat`** dosyasına çift tıklayın.
+1. Dosyayı zip olarak indirdikten sonra tümünü ayıklayıp proje klasörü içerisindeki **`baslat.bat`** dosyasına çift tıklayın.
 2. Komut satırı (CMD) ekranı açılacak ve sırasıyla; Docker sunucularını indirecek, veritabanını hazırlayacak ve 2000 adet Kaggle kitabını sisteme otomatik olarak aktaracaktır.
 3. İşlem tamamlandığında sistem varsayılan tarayıcınızda otomatik olarak açılacaktır (👉 **http://localhost:8080**).
 
