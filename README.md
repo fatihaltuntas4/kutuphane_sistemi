@@ -28,22 +28,25 @@ Tüm bu sistem **Docker** ve **Docker Compose** kullanılarak konteynerleştiril
 
 ## 📦 Kurulum ve Çalıştırma (Docker)
 
-Projeyi bilgisayarınızda çalıştırmak için **Docker** ve **Docker Desktop**'ın yüklü olması yeterlidir.
+Projeyi bilgisayarınızda çalıştırmak için sadece **Docker Desktop**'ın yüklü ve çalışır durumda olması yeterlidir. Sistemin kurulumu ve verilerin içeri aktarılması **tamamen otomatikleştirilmiştir**.
 
-1. Proje dizinine gidin:
-   ```bash
-   cd kutuphane_sistemi
-   ```
-2. Docker Compose ile tüm sistemi (Frontend, Backend ve Veritabanı) tek komutla ayağa kaldırın:
+### ⚡ Tek Tıkla Kurulum (Windows İçin Önerilen)
+Sistemi değerlendirecek hocalarımızın ve kullanıcıların rahatlığı için otomatik bir başlatıcı hazırlanmıştır:
+1. Proje klasörü içerisindeki **`baslat.bat`** dosyasına çift tıklayın.
+2. Komut satırı (CMD) ekranı açılacak ve sırasıyla; Docker sunucularını indirecek, veritabanını hazırlayacak ve 2000 adet Kaggle kitabını sisteme otomatik olarak aktaracaktır.
+3. İşlem tamamlandığında sistem varsayılan tarayıcınızda otomatik olarak açılacaktır (👉 **http://localhost**).
+
+### 🛠️ Manuel Kurulum (Mac/Linux veya Alternatif)
+Eğer sistemi manuel komutlarla çalıştırmak isterseniz proje dizininde (Terminal/CMD) aşağıdaki komutları sırasıyla girebilirsiniz:
+1. Docker Compose ile sunucuları ayağa kaldırın:
    ```bash
    docker-compose up -d --build
    ```
-3. (Opsiyonel) Kaggle veriseti üzerinden 2000 kitap ve 50 örnek kullanıcıyı sisteme aktarmak için veritabanını hazırlayan şu komutu çalıştırın:
+2. Kaggle verisetini veritabanına aktarın:
    ```bash
    docker exec kutuphane_backend python import_kaggle_data.py
    ```
-4. Tarayıcınızdan aşağıdaki adrese giderek sistemi kullanmaya başlayabilirsiniz:
-   👉 **http://localhost**
+3. Tarayıcınızdan sisteme giriş yapın: 👉 **http://localhost**
 
 ## 📂 Dosya Yapısı
 - `/frontend`: Kullanıcı arayüzü dosyaları (HTML, CSS, JS) ve Nginx Dockerfile.
